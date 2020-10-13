@@ -1,23 +1,56 @@
-import React from "react"
+import React, { Component }from "react"
+import PropTypes from 'prop-types';
 import "./QuoteCard.css"
 
-function QuoteCard() {
-    return (
 
-        <figure className="QuoteCard">
-            <img
-            src="https://pm1.narvii.com/7070/aeaeadea89d89327a8e5f4f83d10272dc337425fr1-1200-1200v2_128.jpg"
-            alt="Nelson Muntz">
-            </img>
-            <figcaption>
-            <blockquote>
-                Shoplifting is a victimless crime, like punching someone in the dark.
-            </blockquote>
-            <cite>Nelson Muntz</cite>
-            </figcaption>
-        </figure>
+class QuoteCard extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            favoris: false,
+        }
+    }
 
-    )
+    favorite = () => {
+        let favoris = !this.state.favoris;
+        this.setState({ favoris })
+    }
+
+    favoriteClass = () => {
+        return this.state.favoris ? "is-favorite" : "";
+    }
+
+    render () {
+        return (
+
+            <figure className="QuoteCard">
+                <img
+                src={this.props.character.image}
+                alt={this.props.character.character}>
+                </img>
+                <figcaption>
+                <blockquote>
+                    {this.props.character.quote}
+
+                </blockquote>
+                <p>
+                    <cite>{this.props.character.character}</cite>
+                    <span onClick={this.favorite} className={this.favoriteClass()}>&#9733;</span>
+                </p>
+
+                </figcaption>
+            </figure>
+    
+        )
+
+    }
+
 }
+
+
+QuoteCard.propTypes = {
+  characterFirstName: PropTypes.string.isRequired,
+  characterLastName: PropTypes.string.isRequired,
+};
 
 export default QuoteCard
